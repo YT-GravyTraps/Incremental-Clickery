@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function prestige() {
         prestigePoints++;
         score = 0;
-        clickValue = baseClickValue;
+        clickValue = baseClickValue*prestigePoints;
         prestigeThreshold *= 2; // Increase the prestige threshold
         updateScore();
         prestigeButton.textContent = `Prestige (${prestigePoints})`;
