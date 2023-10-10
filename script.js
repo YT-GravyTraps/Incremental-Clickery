@@ -23,12 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     upgradeButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            const cost = parseInt(button.getAttribute('data-cost'));
-            const value = parseInt(button.getAttribute('data-value'));
+            const cost = parseFloat(button.getAttribute('data-cost'));
+            const value = parseFloat(button.getAttribute('data-value'));
             
             if (score >= cost) {
                 score -= cost;
-                clickValue += value; // Add the value to the clickValue
+                clickValue += value*(prestigePoints+1); // Add the value to the clickValue
                 updateScore();
                 updateUpgradeCost(button, cost); // Update the upgrade cost
             }
@@ -51,16 +51,23 @@ document.addEventListener('DOMContentLoaded', () => {
         button.setAttribute('data-cost', cost);
         button.textContent = `Upgrade (Cost: ${cost})`;
     }
-
+    
     function prestige() {
         prestigePoints++;
         score = 0;
         clickValue = baseClickValue*prestigePoints;
         prestigeThreshold *= 2; // Increase the prestige threshold
+        
+        // Reset upgrade costs to their base values
+        upgradeButtons.forEach((button) => {
+        const baseCost = parseFloat(baseCostScientific);
+        button.setAttribute('data-cost', baseCost);
+        button.textContent = `Upgrade (Cost: ${baseCost})`;
+        });
+
+        // Update the prestige cost display
         updateScore();
         prestigeButton.textContent = `Prestige (${prestigePoints})`;
-    
-        // Update the prestige cost display
         prestigeCostElement.textContent = `Prestige Cost: ${prestigeThreshold}`;
     }
     
