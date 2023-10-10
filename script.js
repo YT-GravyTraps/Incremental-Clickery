@@ -3,11 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let baseClickValue = 1; // Base click value
     let clickValue = baseClickValue; // Initial click value
     let prestigePoints = 0;
-
+    let prestigeThreshold = 1000; // Initial prestige threshold
     const scoreElement = document.getElementById('score');
     const clickButton = document.getElementById('clickButton');
     const upgradeButtons = document.querySelectorAll('.upgrade-button');
     const prestigeButton = document.getElementById('prestigeButton');
+    const prestigeCostElement = document.getElementById('prestigeCost')
+    
+     
+    
+
+
+
 
     clickButton.addEventListener('click', () => {
         score += clickValue;
@@ -48,12 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function prestige() {
         prestigePoints++;
         score = 0;
-        clickValue = baseClickValue+prestigePoints;
-        prestigeThreshold *= 5; // Increase the prestige threshold
+        clickValue = baseClickValue;
+        prestigeThreshold *= 2; // Increase the prestige threshold
         updateScore();
         prestigeButton.textContent = `Prestige (${prestigePoints})`;
-        prestigeThresholdElement.textContent = `Prestige Threshold: ${prestigeThreshold}`;
+    
+        // Update the prestige cost display
+        prestigeCostElement.textContent = `Prestige Cost: ${prestigeThreshold}`;
     }
+    
 
     // Initialize the game state, load saved data, etc.
     // You'll also need to handle saving and loading prestige points.
